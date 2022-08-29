@@ -1,21 +1,20 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import * as Joi from 'joi';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { async } from 'rxjs';
-import { BlogModule } from './blog/blog.module';
-import { ProfileModule } from './profile/profile.module';
-import { BlogsModule } from './profiles/blogs/blogs.module';
-import { BlogsModule } from './blogs/blogs.module';
-import { ProfilesModule } from './profiles/profiles.module';
-import { VisitorsModule } from './visitors/visitors.module';
-import { TagsModule } from './tags/tags.module';
+import { Module } from '@nestjs/common'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
+import * as Joi from 'joi'
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
+import { AppController } from './app.controller'
+import { UserEntity } from './users/users.entity'
+import { UsersModule } from './users/users.module'
+import { BlogsModule } from './blogs/blogs.module'
+import { TagsModule } from './tags/tags.module'
+import { VisitorsModule } from './visitors/visitors.module'
+import { ProfilesModule } from './profiles/profiles.module'
 
-const TypeOrmModuleOptions = {
-  useFactory: async (configService: ConfigService) => ({
+const typeOrmModuleOptions = {
+  useFactory: async (
+    configService: ConfigService,
+  ): Promise<TypeOrmModuleOptions> => ({
     namingStrategy: new SnakeNamingStrategy(),
     type: 'postgres',
     host: configService.get('DB_HOST'), // process.env.DB_HOST
@@ -29,19 +28,18 @@ const TypeOrmModuleOptions = {
     logging: true,
     keepConnectionAlive: true,
   }),
-};
+  inject: [ConfigService],
+}
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        // joi를 사용하면 환경변수의 유효성 검사를 할 수 있습니다.
         NODE_ENV: Joi.string()
-          .valid('development', 'production', 'test', 'rpovision')
+          .valid('development', 'production', 'test', 'provision')
           .default('development'),
-        PORT: Joi.number().default(8080),
+        PORT: Joi.number().default(5000),
         SECRET_KEY: Joi.string().required(),
         ADMIN_USER: Joi.string().required(),
         ADMIN_PASSWORD: Joi.string().required(),
@@ -52,15 +50,13 @@ const TypeOrmModuleOptions = {
         DB_NAME: Joi.string().required(),
       }),
     }),
-    TypeOrmModule.forRootAsync({}),
-    BlogModule,
-    ProfileModule,
+    TypeOrmModule.forRootAsync(typeOrmModuleOptions),
+    UsersModule,
     BlogsModule,
-    ProfilesModule,
-    VisitorsModule,
     TagsModule,
+    VisitorsModule,
+    ProfilesModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}

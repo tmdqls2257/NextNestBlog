@@ -1,42 +1,62 @@
 import {
+  Body,
   Controller,
   Get,
+  Logger,
   Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+  Res,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common'
+import { Response } from 'express'
+import { UsersService } from './users.service'
+import { UserLogInDTO } from './dtos/user-login.dto'
+import { UserRegisterDTO } from './dtos/user-register.dto'
+import { InjectRepository } from '@nestjs/typeorm'
+import { UserEntity } from './users.entity'
+import { Repository } from 'typeorm'
+import { OnlyPrivateInterceptor } from '../common/interceptors/only-private.interceptor'
+import { CurrentUser } from '../common/decorators/current-user.decorator'
+import { UserDTO } from './dtos/user.dto'
+import { JwtAuthGuard } from './jwt/jwt.guard'
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  private readonly logger = new Logger(UsersController.name)
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
-  }
+  constructor(
+    private readonly usersService: UsersService,
+    @InjectRepository(UserEntity)
+    private readonly usersRepository: Repository<UserEntity>,
+  ) {}
 
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(OnlyPrivateInterceptor)
+  async getCurrentUser(@CurrentUser() currentUser: UserDTO) {
+    return currentUser
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @Post()
+  async signUp(@Body() userRegisterDTO: UserRegisterDTO) {
+    return await this.usersService.registerUser(userRegisterDTO)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Post('login')
+  async logIn(
+    @Body() userLoginDTO: UserLogInDTO,
+    @Res({ passthrough: true }) response: Response,
+  ) {
+    const { jwt, user } = await this.usersService.verifyUserAndSignJwt(
+      userLoginDTO.email,
+      userLoginDTO.password,
+    )
+    response.cookie('jwt', jwt, { httpOnly: true })
+    return user
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @Post('logout')
+  async logOut(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie('jwt')
   }
 }
