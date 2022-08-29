@@ -33,11 +33,12 @@
     "@types/multer": "^1.4.7",
     "aws-sdk": "^2.1007.0",
     "bcrypt": "^5.0.1",
-    "class-transformer": "^0.4.0",
+    "class-transformer": "^0.5.0",
     "class-validator": "^0.13.1",
     "cookie-parser": "^1.4.5",
     "dotenv": "^10.0.0",
     "express-basic-auth": "^1.2.0",
+    "express-session": "^1.17.3",
     "hbs": "^4.1.2",
     "joi": "^17.4.2",
     "multer": "^1.4.3",
@@ -66,6 +67,7 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.13",
+    "@types/express-session": "^1.17.5",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.0.0",
     "@types/passport-jwt": "^3.0.6",
@@ -103,5 +105,6 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
-  }
+  },
+  "main": "index.js"
 }

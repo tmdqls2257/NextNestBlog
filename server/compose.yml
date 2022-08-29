@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   db:
@@ -6,10 +6,7 @@ services:
     restart: always
     env_file:
       - ./.env
-    # 5432에서 열리는 포트를 5433으로 열겠다는 의미
     ports:
       - 5433:5432
-      # db backup
-      # volumn mount db_data라는 폴더 안에 데이터를 보관해둡니다.
     volumes:
       - ./db_data:/var/lib/postgresql/data
