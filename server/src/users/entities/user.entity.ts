@@ -1,9 +1,11 @@
 import { Exclude } from 'class-transformer';
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { BlogEntity } from 'src/blogs/entities/blog.entity';
 import { CommonEntity } from 'src/common/entities/common.entity';
+import { ProfileEntity } from 'src/profiles/entities/profile.entity';
 import { Column, JoinColumn, OneToMany, OneToOne } from 'typeorm';
 
-export class UserEntitiy extends CommonEntity {
+export class UserEntity extends CommonEntity {
   @IsEmail({}, { message: '올바른 이메일을 작성해주세요' })
   @IsNotEmpty({ message: '이메일을 작성해주세요' })
   @Column({ type: 'varchar', unique: true, nullable: false })

@@ -1,3 +1,7 @@
+import { CommonEntity } from 'src/common/entities/common.entity';
+import { TagEntity } from 'src/tags/entities/tag.entity';
+import { UserEntity } from 'src/users/entities/user.entity';
+import { VisitorEntity } from 'src/visitors/entities/visitor.entity';
 import {
   Column,
   Entity,
