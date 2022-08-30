@@ -1,15 +1,15 @@
-import { Module } from '@nestjs/common'
-import { ConfigModule, ConfigService } from '@nestjs/config'
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
-import * as Joi from 'joi'
-import { SnakeNamingStrategy } from 'typeorm-naming-strategies'
-import { AppController } from './app.controller'
-import { UserEntity } from './users/users.entity'
-import { UsersModule } from './users/users.module'
-import { BlogsModule } from './blogs/blogs.module'
-import { TagsModule } from './tags/tags.module'
-import { VisitorsModule } from './visitors/visitors.module'
-import { ProfilesModule } from './profiles/profiles.module'
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import * as Joi from 'joi';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { AppController } from './app.controller';
+import { UserEntity } from './users/users.entity';
+import { UsersModule } from './users/users.module';
+import { BlogsModule } from './blogs/blogs.module';
+import { TagsModule } from './tags/tags.module';
+import { VisitorsModule } from './visitors/visitors.module';
+import { ProfilesModule } from './profiles/profiles.module';
 
 const typeOrmModuleOptions = {
   useFactory: async (
@@ -29,17 +29,19 @@ const typeOrmModuleOptions = {
     keepConnectionAlive: true,
   }),
   inject: [ConfigService],
-}
+};
 
 @Module({
   imports: [
+    // env를 사용하기 위한 설정
+    // Joi는 환경변수의 유효성 검사를 해주는 패키지 환경변수가 없을 경우 자동으로 throw를 던져줍니다.
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
         NODE_ENV: Joi.string()
           .valid('development', 'production', 'test', 'provision')
           .default('development'),
-        PORT: Joi.number().default(5000),
+        PORT: Joi.number().default(8080),
         SECRET_KEY: Joi.string().required(),
         ADMIN_USER: Joi.string().required(),
         ADMIN_PASSWORD: Joi.string().required(),
