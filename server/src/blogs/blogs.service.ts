@@ -67,4 +67,8 @@ export class BlogsService {
     });
     return updateblog;
   }
+  async deleteBlog(id: string) {
+    const deleteBlog = await this.BlogEntityRepository.delete(id);
+    return deleteBlog;
+  }
 }
