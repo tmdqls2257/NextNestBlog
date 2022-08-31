@@ -1,7 +1,7 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BlogEntity } from 'src/blogs/blogs.entity';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { BlogDTO } from './dto/blog.dto';
 
 @Injectable()
@@ -10,10 +10,11 @@ export class BlogsService {
     @InjectRepository(BlogEntity)
     private readonly BlogEntityRepository: Repository<BlogEntity>,
   ) {}
+
   async getAllBlogs() {
     try {
-      const comments = await this.BlogEntityRepository.find();
-      return comments;
+      const blogs = await this.BlogEntityRepository.find();
+      return blogs;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -32,5 +33,25 @@ export class BlogsService {
       description,
     });
     return newBlog;
+  }
+
+  async updateBlog(id: string, body: BlogDTO) {
+    const { title, contents, description } = body;
+    // const blog = await this.BlogEntityRepository.findOneBy(id);
+    // blog[0].title =
+    // return blog;
+    const firstBlog = await this.BlogEntityRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    const date = new Date(Date.now());
+    firstBlog.title = title;
+    firstBlog.contents = contents;
+    firstBlog.description = description;
+    firstBlog.updatedAt = date;
+    // console.log(firstBlog.updatedAt, date, Date.now());
+
+    return firstBlog;
   }
 }

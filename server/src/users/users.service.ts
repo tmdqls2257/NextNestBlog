@@ -27,7 +27,11 @@ export class UsersService {
 
   async registerUser(userRegisterDTO: UserRegisterDTO): Promise<void> {
     const { email, password } = userRegisterDTO;
-    const user = await this.usersRepository.findOne({ email });
+    const user = await this.usersRepository.findOne({
+      where: {
+        email,
+      },
+    });
     if (user) {
       throw new UnauthorizedException('해당하는 이메일은 이미 존재합니다.');
     }
@@ -42,7 +46,12 @@ export class UsersService {
     email: UserLogInDTO['email'],
     password: UserLogInDTO['password'],
   ): Promise<{ jwt: string; user: UserDTO }> {
-    const user = await this.usersRepository.findOne({ email });
+    const user = await this.usersRepository.findOne({
+      where: {
+        email,
+      },
+    });
+    console.log('user', user);
     if (!user)
       throw new UnauthorizedException('해당하는 이메일은 존재하지 않습니다.');
     if (!(await bcrypt.compare(password, user.password)))
@@ -60,7 +69,11 @@ export class UsersService {
 
   async findUserById(id: string) {
     try {
-      const user = await this.usersRepository.findOne({ id });
+      const user = await this.usersRepository.findOne({
+        where: {
+          id,
+        },
+      });
       if (!user) throw new Error();
       return user;
     } catch (error) {

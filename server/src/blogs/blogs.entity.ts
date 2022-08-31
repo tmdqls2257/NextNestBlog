@@ -21,10 +21,10 @@ export class BlogEntity extends CommonEntity {
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', nullable: true, default: '' })
   description: string;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'text', nullable: true, default: '' })
   contents: string;
 
   @ManyToOne(() => UserEntity, (author: UserEntity) => author.blogs, {
@@ -40,15 +40,7 @@ export class BlogEntity extends CommonEntity {
   ])
   author: UserEntity;
 
-  // @ApiProperty({
-  //   description: '좋아요 갯수',
-  // })
-  // @Prop({
-  //   default: 0,
-  // })
-  // @IsPositive()
-  // @IsNotEmpty()
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'int', nullable: true, default: 0 })
   likeCount: number;
 
   @ManyToMany(() => TagEntity, (tag: TagEntity) => tag.blog, {
