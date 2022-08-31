@@ -1,7 +1,16 @@
 import { IsBoolean, IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { CommonEntity } from '../common/entities/common.entity'; // ormconfig.json에서 파싱 가능하도록 상대 경로로 지정
-import { Column, Entity, Index } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+} from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { ProfileEntity } from '../profiles/profiles.entity';
+import { BlogEntity } from '../blogs/blogs.entity';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
@@ -25,4 +34,14 @@ export class UserEntity extends CommonEntity {
   @IsBoolean()
   @Column({ type: 'boolean', default: false })
   isAdmin: boolean;
+
+  //JoinColumn은 db에 profile의 id를 저장하는데 column의 name을 profile_id로 합니다.
+  @OneToOne(() => ProfileEntity)
+  @JoinColumn({ name: 'profile_id', referencedColumnName: 'id' })
+  profile: ProfileEntity;
+
+  @OneToMany(() => BlogEntity, (blog: BlogEntity) => blog.author, {
+    cascade: true,
+  })
+  blogs: BlogEntity[];
 }
