@@ -10,7 +10,7 @@ export class TagEntity extends CommonEntity {
   name: string;
 
   @ManyToMany(() => BlogEntity, (blog: BlogEntity) => blog.tags, {
-    cascade: true,
+    // cascade: true,
   })
   blog: BlogEntity[];
 }

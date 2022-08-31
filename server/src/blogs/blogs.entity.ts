@@ -48,7 +48,7 @@ export class BlogEntity extends CommonEntity {
   // })
   // @IsPositive()
   // @IsNotEmpty()
-  @Column({ type: 'number', nullable: true })
+  @Column({ type: 'int', nullable: true })
   likeCount: number;
 
   @ManyToMany(() => TagEntity, (tag: TagEntity) => tag.blog, {
