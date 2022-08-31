@@ -20,8 +20,15 @@ export class BlogsService {
     }
   }
 
-  getBlog() {
-    return 'get blog';
+  async getBlog(id: string) {
+    try {
+      const blog = await this.BlogEntityRepository.findOne({
+        where: { id },
+      });
+      return blog;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 
   async blogPost(BlogEntity: BlogDTO) {
@@ -40,18 +47,24 @@ export class BlogsService {
     // const blog = await this.BlogEntityRepository.findOneBy(id);
     // blog[0].title =
     // return blog;
-    const firstBlog = await this.BlogEntityRepository.findOne({
-      where: {
-        id,
-      },
-    });
-    const date = new Date(Date.now());
-    firstBlog.title = title;
-    firstBlog.contents = contents;
-    firstBlog.description = description;
-    firstBlog.updatedAt = date;
-    // console.log(firstBlog.updatedAt, date, Date.now());
+    // const firstBlog = await this.BlogEntityRepository.findOne({
+    //   where: {
+    //     id,
+    //   },
+    // });
 
-    return firstBlog;
+    const date = new Date(Date.now());
+    // firstBlog.title = title;
+    // firstBlog.contents = contents;
+    // firstBlog.description = description;
+    // firstBlog.updatedAt = date;
+    // console.log(firstBlog.updatedAt, date, Date.now());
+    const updateblog = this.BlogEntityRepository.update(id, {
+      title,
+      contents,
+      description,
+      updatedAt: date,
+    });
+    return updateblog;
   }
 }
