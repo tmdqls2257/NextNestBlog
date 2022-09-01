@@ -4,7 +4,7 @@ import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Button from "./button";
+import Button, { LinkButton } from "./button";
 
 export default {
   /* 👇 The title prop is optional.
@@ -16,9 +16,6 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 export const Primary: ComponentStory<typeof Button> = () => <Button></Button>;
-export const Onlick: ComponentStory<typeof Button> = () => {
-  const onClick = () => {
-    console.log(1);
-  };
-  return <Button onClick={onClick}></Button>;
+export const Link: ComponentStory<typeof Button> = () => {
+  return <LinkButton href={"/blogs"}></LinkButton>;
 };
