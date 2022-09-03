@@ -12,7 +12,7 @@ const Header = ({ onClick }: HeaderProps) => {
   return (
     <header className={classNameJoiner("w-full flex items-center")}>
       <IconBox onClick={onClick} iconName={IconType.menu} />
-      <img src={logo} alt="logo" width={80} />
+      <img src={"/Teogu.png"} alt="logo" width={80} />
     </header>
   );
 };
