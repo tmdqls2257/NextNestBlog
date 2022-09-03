@@ -11,6 +11,7 @@ import {
 import { UserEntity } from '../users/users.entity';
 import { TagEntity } from '../tags/tags.entity';
 import { VisitorEntity } from '../visitors/visitors.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 // db에 실제로 들어가는 bd명
 @Entity({
@@ -18,12 +19,27 @@ import { VisitorEntity } from '../visitors/visitors.entity';
 })
 export class BlogEntity extends CommonEntity {
   // Column: db에 저장될 때 어떠한 형식으로 저장되는지 결정하는 데코레이터
+  @ApiProperty({
+    example: 'test@test.com',
+    description: 'email',
+    required: true,
+  })
   @Column({ type: 'varchar', nullable: false })
   title: string;
 
+  @ApiProperty({
+    example: 'html',
+    description: 'description',
+    required: true,
+  })
   @Column({ type: 'varchar', nullable: true, default: '' })
   description: string;
 
+  @ApiProperty({
+    example: 'test content입니다.',
+    description: 'contents',
+    required: true,
+  })
   @Column({ type: 'text', nullable: true, default: '' })
   contents: string;
 

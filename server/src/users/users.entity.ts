@@ -11,26 +11,46 @@ import {
 import { Exclude } from 'class-transformer';
 import { ProfileEntity } from '../profiles/profiles.entity';
 import { BlogEntity } from '../blogs/blogs.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
   name: 'USER',
 }) // USER : 테이블 명
 export class UserEntity extends CommonEntity {
+  @ApiProperty({
+    example: 'test@text.com',
+    description: 'email',
+    required: true,
+  })
   @IsEmail({}, { message: '올바른 이메일을 작성해주세요.' })
   @IsNotEmpty({ message: '이메일을 작성해주세요.' })
   @Column({ type: 'varchar', unique: true, nullable: false })
   email: string;
 
+  @ApiProperty({
+    example: 'tmdqls2257',
+    description: 'username',
+    required: true,
+  })
   @IsString()
   @IsNotEmpty({ message: '이름을 작성해주세요.' })
   @Column({ type: 'varchar', nullable: false })
   username: string;
 
+  @ApiProperty({
+    example: 'chl135',
+    description: 'password',
+    required: true,
+  })
   @Exclude()
   @Column({ type: 'varchar', nullable: false })
   password: string;
 
+  @ApiProperty({
+    example: true,
+    description: 'password',
+  })
   @IsBoolean()
   @Column({ type: 'boolean', default: false })
   isAdmin: boolean;
