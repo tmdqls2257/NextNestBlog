@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
   const onClick = () => {};
 
   return (
-    <div className="bg-violet dark:bg-magenta min-h-screen">
+    <div className=" min-h-screen">
       <Header onClick={onClick} />
       {children}
     </div>

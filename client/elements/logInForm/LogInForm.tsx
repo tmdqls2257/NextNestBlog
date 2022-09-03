@@ -1,5 +1,6 @@
 import Card from "../../common/card/Card";
 import React from "react";
+import Button from "../../common/button/button";
 
 const LogInForm = () => {
   return (
@@ -34,14 +35,10 @@ const LogInForm = () => {
         {/* <p className="text-red text-xs italic">{"Please choose a password."}</p> */}
       </div>
       <div className="flex items-center justify-between">
-        <button
-          className="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded"
-          type="button"
-        >
-          {"Sign In"}
-        </button>
+        <Button>{"Sign In"}</Button>
+
         <a
-          className="inline-block align-baseline font-bold text-sm text-blue hover:text-blue-darker"
+          className="inline-block align-baseline font-bold text-sm text-violet hover:text-blue-darker"
           href="#"
         >
           {"Forgot Password?"}
