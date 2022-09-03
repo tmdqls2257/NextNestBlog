@@ -4,7 +4,8 @@ import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import Card from "./card";
+import BlogCard from "./BlogCard";
+import Card from "./Card";
 
 export default {
   /* 👇 The title prop is optional.
@@ -12,10 +13,10 @@ export default {
    * to learn how to generate automatic titles
    */
   title: "Components/Card",
-  component: Card,
-} as ComponentMeta<typeof Card>;
+  component: BlogCard,
+} as ComponentMeta<typeof BlogCard>;
 
-export const Primary: ComponentStory<typeof Card> = () => {
+export const blogCard: ComponentStory<typeof BlogCard> = () => {
   const data = {
     title: "test2 입니다.",
     contents: "test2",
@@ -26,5 +27,13 @@ export const Primary: ComponentStory<typeof Card> = () => {
     createdAt: "2022-09-03T03:08:48.730Z",
     updatedAt: "2022-09-03T03:08:48.730Z",
   };
-  return <Card blogData={data}></Card>;
+  return <BlogCard blogData={data}></BlogCard>;
+};
+
+export const card: ComponentStory<typeof BlogCard> = () => {
+  return (
+    <Card>
+      <h1>{"1212"}</h1>
+    </Card>
+  );
 };
