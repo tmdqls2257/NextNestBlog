@@ -11,6 +11,7 @@ module.exports = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "storybook-css-modules-preset",
+    "storybook-addon-next-router",
     // "storybook-addon-next-router",
     {
       /**
