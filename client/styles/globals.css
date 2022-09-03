@@ -59,12 +59,12 @@ ol {
   }
 
   h5 {
-    @apply text-lg font-normal whitespace-pre-wrap;
+    @apply text-lg font-medium whitespace-pre-wrap;
     word-break: keep-all;
   }
 
   p {
-    @apply text-base font-normal whitespace-pre-wrap;
+    @apply text-base font-normal;
     word-break: keep-all;
   }
 }

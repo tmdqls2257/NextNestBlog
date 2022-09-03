@@ -15,10 +15,16 @@ export default {
   component: Card,
 } as ComponentMeta<typeof Card>;
 
-export const Primary: ComponentStory<typeof Card> = () => (
-  <Card>
-    <h5>{"cardComponent title"}</h5>
-    <p>{"cardComponent contents"}</p>
-    <span>{"2022-08-19"}</span>
-  </Card>
-);
+export const Primary: ComponentStory<typeof Card> = () => {
+  const data = {
+    title: "test2 입니다.",
+    contents: "test2",
+    description: "text2",
+    deletedAt: null,
+    likeCount: 0,
+    id: "de992305-c065-4644-804f-2879952e0a54",
+    createdAt: "2022-09-03T03:08:48.730Z",
+    updatedAt: "2022-09-03T03:08:48.730Z",
+  };
+  return <Card blogData={data}></Card>;
+};
