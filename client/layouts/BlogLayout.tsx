@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../elements/footer/footer";
 
 type BlogLyaoutProps = {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ const BlogLayout = ({ children }: BlogLyaoutProps) => {
     <>
       <img src="/black_girl.png" alt="" />
       {children}
+      <Footer />
     </>
   );
 };
