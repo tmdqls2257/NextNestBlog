@@ -1,19 +1,24 @@
-import axios, { AxiosAdapter, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-enum methodType {
+export enum MethodType {
   get = "get",
   post = "post",
   patch = "patch",
   delete = "delete",
 }
 
-export default class Axios {
+class Axios {
+  private static instance: Axios;
   private baseURL: string;
   constructor(baseURL: string) {
     this.baseURL = baseURL;
   }
 
-  async request(url: string, method: methodType, options: AxiosRequestConfig) {
+  async request(
+    url: string | undefined,
+    method: MethodType,
+    options: AxiosRequestConfig
+  ) {
     try {
       const res: AxiosResponse = await axios(`${this.baseURL}${url}`, {
         method,
@@ -22,6 +27,7 @@ export default class Axios {
         headers: {
           ...options.headers,
         },
+        withCredentials: true,
       });
 
       if (res.status > 299 || res.status < 200) {
@@ -39,4 +45,15 @@ export default class Axios {
       console.log(err);
     }
   }
+
+  public static getInstance(baseURL: string): Axios {
+    if (!Axios.instance) {
+      Axios.instance = new Axios(baseURL);
+    }
+    return Axios.instance;
+  }
 }
+
+const NetworkService = Axios.getInstance(`http://localhost:8080/`);
+
+export default NetworkService;

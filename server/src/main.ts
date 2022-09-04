@@ -17,7 +17,7 @@ class Application {
   private logger = new Logger(Application.name);
   private DEV_MODE: boolean;
   private PORT: string;
-  private corsOriginList: string[];
+  // private corsOriginPort: string[];
   private ADMIN_USER: string;
   private ADMIN_PASSWORD: string;
 
@@ -26,10 +26,10 @@ class Application {
 
     if (!process.env.SECRET_KEY) this.logger.error('Set "SECRET" env');
     this.DEV_MODE = process.env.NODE_ENV === 'production' ? false : true;
-    this.PORT = process.env.PORT || '5000';
-    this.corsOriginList = process.env.CORS_ORIGIN_LIST
-      ? process.env.CORS_ORIGIN_LIST.split(',').map((origin) => origin.trim())
-      : ['*'];
+    this.PORT = process.env.PORT || '8080';
+    // this.corsOriginPort = process.env.CORS_ORIGIN_PORT
+    //   ? process.env.CORS_ORIGIN_LIST.split(',').map((origin) => origin.trim())
+    //   : ['*'];
     // ("https://google.com, https://naver.com");
     this.ADMIN_USER = process.env.ADMIN_USER || 'amamov';
     this.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '1205';
@@ -66,7 +66,7 @@ class Application {
 
   private async setUpGlobalMiddleware() {
     this.server.enableCors({
-      origin: this.corsOriginList,
+      origin: process.env.CORS_PORT,
       credentials: true,
     });
     this.server.use(
