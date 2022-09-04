@@ -3,6 +3,8 @@ import React, { useRef, useState } from "react";
 import Button from "../../common/button/button";
 import NetworkService, { MethodType } from "service/axios";
 import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { userState } from "service/atom";
 
 const LogInForm = () => {
   const [account, setAccount] = useState({
@@ -10,6 +12,7 @@ const LogInForm = () => {
     password: "",
   });
   const [isLogIn, setIsLogIn] = useState(false);
+  const [user, setUser] = useRecoilState(userState);
 
   //input에 입력될 때마다 account state값 변경되게 하는 함수
   const onChangeAccount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,6 +31,7 @@ const LogInForm = () => {
       },
     }).then((res) => {
       setIsLogIn(true);
+      setUser(res);
     });
     isLogIn && router.back();
   };
@@ -41,8 +45,7 @@ const LogInForm = () => {
   //   setAccount(resetInputs);
   // };
 
-  //anerim.tistory.com/180 [디발자 뚝딱:티스토리]
-  출처: https: return (
+  return (
     <Card style="absolute_center">
       <div className="mb-4">
         <label
