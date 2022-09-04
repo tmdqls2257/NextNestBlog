@@ -2,12 +2,14 @@ import Card from "../../common/card/Card";
 import React, { useRef, useState } from "react";
 import Button from "../../common/button/button";
 import NetworkService, { MethodType } from "service/axios";
+import { useRouter } from "next/router";
 
 const LogInForm = () => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
+  const [isLogIn, setIsLogIn] = useState(false);
 
   //input에 입력될 때마다 account state값 변경되게 하는 함수
   const onChangeAccount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +18,7 @@ const LogInForm = () => {
       [e.target.name]: e.target.value,
     });
   };
+  const router = useRouter();
 
   const onLogIn = () => {
     NetworkService.request("users/login", MethodType.post, {
@@ -23,18 +26,20 @@ const LogInForm = () => {
         email: account.email,
         password: account.password,
       },
-    }).then((res) => console.log(res));
-    console.log(account);
+    }).then((res) => {
+      setIsLogIn(true);
+    });
+    isLogIn && router.back();
   };
 
-  const onReset = () => {
-    const resetInputs = {
-      email: "",
-      password: "",
-    };
-    //초기화 객체값을 넣은 변수로 변경하도록 셋인풋 실행
-    setAccount(resetInputs);
-  };
+  // const onReset = () => {
+  //   const resetInputs = {
+  //     email: "",
+  //     password: "",
+  //   };
+  //   //초기화 객체값을 넣은 변수로 변경하도록 셋인풋 실행
+  //   setAccount(resetInputs);
+  // };
 
   //anerim.tistory.com/180 [디발자 뚝딱:티스토리]
   출처: https: return (
