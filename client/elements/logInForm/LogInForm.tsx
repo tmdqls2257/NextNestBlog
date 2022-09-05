@@ -1,18 +1,15 @@
 import Card from "../../common/card/Card";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../common/button/button";
-import NetworkService, { MethodType } from "service/axios";
-import { useRouter } from "next/router";
-import { useRecoilState } from "recoil";
-import { userState } from "service/atom";
+import UserStore from "store/userStore";
+import { userStores } from "store/Context";
 
 const LogInForm = () => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
-  const [isLogIn, setIsLogIn] = useState(false);
-  const [user, setUser] = useRecoilState(userState);
+  const { userStore } = userStores();
 
   //input에 입력될 때마다 account state값 변경되게 하는 함수
   const onChangeAccount = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,19 +18,9 @@ const LogInForm = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const router = useRouter();
 
   const onLogIn = () => {
-    NetworkService.request("users/login", MethodType.post, {
-      data: {
-        email: account.email,
-        password: account.password,
-      },
-    }).then((res) => {
-      setIsLogIn(true);
-      setUser(res);
-    });
-    isLogIn && router.back();
+    userStore.logIn(account.email, account.password);
   };
 
   // const onReset = () => {
@@ -82,7 +69,6 @@ const LogInForm = () => {
       </div>
       <div className="flex items-center justify-between">
         <Button onClick={onLogIn}>{"Sign In"}</Button>
-
         <a
           className="inline-block align-baseline font-bold text-sm text-violet hover:text-blue-darker"
           href="#"
