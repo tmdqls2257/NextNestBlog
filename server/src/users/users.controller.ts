@@ -56,7 +56,12 @@ export class UsersController {
       userLoginDTO.email,
       userLoginDTO.password,
     );
-    response.cookie('jwt', jwt, { httpOnly: true });
+    response.cookie('jwt', jwt, {
+      maxAge: 3600 * 1000,
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    });
     return user;
   }
 
@@ -64,5 +69,6 @@ export class UsersController {
   @Post('logout')
   async logOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie('jwt');
+    return response.status(200).json({ message: 'User has been logout' });
   }
 }
