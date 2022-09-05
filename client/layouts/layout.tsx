@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import IconBox, { IconType } from "../common/IconBox/IconBox";
+
 import Header from "../elements/header/header";
 
 type LayoutProps = {
@@ -7,8 +7,6 @@ type LayoutProps = {
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  //   const { isOpen, setIsOpen } = useState(false);
-
   const onClick = () => {};
 
   return (
