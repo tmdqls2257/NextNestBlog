@@ -13,6 +13,8 @@
   "dependencies": {
     "@types/axios": "^0.14.0",
     "axios": "^0.27.2",
+    "mobx": "^6.6.1",
+    "mobx-react": "^7.5.2",
     "next": "12.2.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -35,6 +37,7 @@
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.8",
     "babel-loader": "^8.2.5",
+    "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "8.23.0",
     "eslint-config-next": "12.2.5",
     "eslint-plugin-storybook": "^0.6.4",
