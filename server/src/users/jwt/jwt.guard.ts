@@ -2,11 +2,11 @@ import {
   ExecutionContext,
   Injectable,
   // UnauthorizedException,
-} from "@nestjs/common";
-import { AuthGuard } from "@nestjs/passport";
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 // JwtAuthGuard를 실행하면 strategy를 자동으로 실행합니다.
 @Injectable()
-export class JwtAuthGuard extends AuthGuard("jwt") {
+export class JwtAuthGuard extends AuthGuard('jwt') {
   canActivate(context: ExecutionContext) {
     return super.canActivate(context);
   }

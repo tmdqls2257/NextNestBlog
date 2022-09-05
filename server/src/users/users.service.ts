@@ -51,7 +51,6 @@ export class UsersService {
         email,
       },
     });
-    console.log('user', user);
     if (!user)
       throw new UnauthorizedException('해당하는 이메일은 존재하지 않습니다.');
     if (!(await bcrypt.compare(password, user.password)))
@@ -59,7 +58,10 @@ export class UsersService {
     try {
       const jwt = await this.jwtService.signAsync(
         { sub: user.id },
-        { secret: this.configService.get('SECRET_KEY') },
+        {
+          secret: this.configService.get('SECRET_KEY'),
+          expiresIn: 3600,
+        },
       );
       return { jwt, user };
     } catch (error) {
