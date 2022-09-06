@@ -1,8 +1,9 @@
 import { action, computed, observable, runInAction } from "mobx";
 import NetworkService, { MethodType } from "network/http";
 import router from "next/router";
+import UserService from "../service/userService";
 
-class User {
+export class User {
   id: string;
   createAt: string;
   updatedAt: string;
@@ -52,16 +53,7 @@ export default class UserStore {
 
   @action
   logIn = async (email: string, password: string): Promise<void> => {
-    const response = await NetworkService.request(
-      "users/login",
-      MethodType.post,
-      {
-        data: {
-          email,
-          password,
-        },
-      }
-    );
+    const response = await UserService.logIn(email, password);
     runInAction(() => {
       this.user = response;
       sessionStorage.setItem("user", JSON.stringify(this.user.username));
@@ -71,12 +63,9 @@ export default class UserStore {
   };
 
   @action
-  logOut() {
-    NetworkService.request("users/logout", MethodType.post, {});
-    sessionStorage.removeItem("user");
-
-    location.reload();
-  }
+  logOut = async () => {
+    await UserService.logOut;
+  };
 
   @computed
   get currentUser() {
