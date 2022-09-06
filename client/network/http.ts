@@ -7,8 +7,8 @@ export enum MethodType {
   delete = "delete",
 }
 
-class Axios {
-  private static instance: Axios;
+class CustomAxios {
+  private static instance: CustomAxios;
   private baseURL: string;
   constructor(baseURL: string) {
     this.baseURL = baseURL;
@@ -46,14 +46,14 @@ class Axios {
     }
   }
 
-  public static getInstance(baseURL: string): Axios {
-    if (!Axios.instance) {
-      Axios.instance = new Axios(baseURL);
+  public static getInstance(baseURL: string): CustomAxios {
+    if (!CustomAxios.instance) {
+      CustomAxios.instance = new CustomAxios(baseURL);
     }
-    return Axios.instance;
+    return CustomAxios.instance;
   }
 }
 
-const NetworkService = Axios.getInstance(`http://localhost:8080/`);
+const NetworkService = CustomAxios.getInstance(`http://localhost:8080/`);
 
 export default NetworkService;
