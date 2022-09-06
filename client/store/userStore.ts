@@ -1,11 +1,4 @@
-import {
-  action,
-  computed,
-  makeAutoObservable,
-  makeObservable,
-  observable,
-  runInAction,
-} from "mobx";
+import { action, computed, observable, runInAction } from "mobx";
 import NetworkService, { MethodType } from "network/http";
 import router from "next/router";
 
@@ -54,11 +47,6 @@ export default class UserStore {
   rootStore;
 
   constructor(root: any) {
-    // makeAutoObservable(this);
-    // makeObservable(this, {
-    //   user: observable,
-    //   logIn: action,
-    // });
     this.rootStore = root;
   }
 
@@ -76,15 +64,29 @@ export default class UserStore {
     );
     runInAction(() => {
       this.user = response;
-      console.log(this.user);
+      sessionStorage.setItem("user", JSON.stringify(this.user.username));
+      console.log(sessionStorage.getItem("user"));
     });
     router.back();
   };
 
+  @action
+  logOut() {
+    NetworkService.request("users/logout", MethodType.post, {});
+    sessionStorage.removeItem("user");
+
+    location.reload();
+  }
+
   @computed
   get currentUser() {
-    console.log(this.user);
+    let userName = "";
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
 
-    return this.user;
+      userName = sessionStorage.getItem("user") || "";
+    }
+
+    return userName;
   }
 }
