@@ -29,6 +29,9 @@ const Header = observer(({ onClick }: HeaderProps) => {
           {"LogIn"}
         </LinkButton>
       )}
+      <LinkButton href={"http://localhost:3000/blogs/post"}>
+        {"글쓰기"}
+      </LinkButton>
     </header>
   );
 });
