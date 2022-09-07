@@ -1,4 +1,5 @@
-import NetworkService, { MethodType } from "network/http";
+// import NetworkService, { MethodType } from "network/http";
+import NetworkService, { MethodType } from "../network/http";
 import { User } from "store/userStore";
 
 class UserNetworkService {

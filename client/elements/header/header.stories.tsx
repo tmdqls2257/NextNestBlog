@@ -1,9 +1,7 @@
-// // Card.stories.ts|tsx
-
 import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import Header from "./header";
+import Header from "./Header";
 
 export default {
   title: "Elements/Header",

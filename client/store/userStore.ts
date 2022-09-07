@@ -1,5 +1,4 @@
 import { action, computed, observable, runInAction } from "mobx";
-import NetworkService, { MethodType } from "network/http";
 import router from "next/router";
 import UserService from "../service/userService";
 
