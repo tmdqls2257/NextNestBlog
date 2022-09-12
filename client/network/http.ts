@@ -14,20 +14,27 @@ class CustomAxios {
     this.baseURL = baseURL;
   }
 
-  async request(
-    url: string | undefined,
-    method: MethodType,
-    options: AxiosRequestConfig
-  ) {
+  async request(url: string | undefined, method: MethodType, data?: any) {
     try {
-      const res: AxiosResponse = await axios(`${this.baseURL}${url}`, {
-        method,
-        ...options,
+      console.log(data);
+      // const res: AxiosResponse = await axios(`${this.baseURL}${url}`, {
+      //   method,
+      //   data: {
+      //     data,
+      //   },
+      //   ...options,
 
-        headers: {
-          ...options.headers,
-        },
-        withCredentials: true,
+      //   headers: {
+      //     ...options.headers,
+      //   },
+      //   withCredentials: true,
+      // });
+      // const res = await axios<T = any, R = AxiosResponse<T>, D = any>(url: string, data?: D, config?: AxiosRequestConfig<D>): Promise<R>{}
+      const res = await axios.request({
+        url,
+        baseURL: this.baseURL,
+        method,
+        data,
       });
 
       if (res.status > 299 || res.status < 200) {

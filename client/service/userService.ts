@@ -9,10 +9,8 @@ class UserNetworkService {
       "users/login",
       MethodType.post,
       {
-        data: {
-          email,
-          password,
-        },
+        email,
+        password,
       }
     );
     return response;
