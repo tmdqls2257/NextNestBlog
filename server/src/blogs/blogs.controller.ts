@@ -6,10 +6,15 @@ import {
   Param,
   Patch,
   Post,
+  UploadedFile,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { BlogsService } from './blogs.service';
 import { BlogDTO } from './dto/blog.dto';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { multerOptions } from '../../utils/multer.options';
 
 @Controller('blogs')
 export class BlogsController {
@@ -43,5 +48,16 @@ export class BlogsController {
   @Delete(':id')
   async deleteBlog(@Param('id') id: string) {
     return await this.blogsService.deleteBlog(id);
+  }
+
+  // @UseInterceptors(FileInterceptor('image', multerOptions('blogs')))
+  // @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cats')))
+  @ApiOperation({ summary: '이미지 업로드' })
+  @Post('upload')
+  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('blogs')))
+  async updateImg(@UploadedFiles() file: Array<Express.Multer.File>) {
+    console.log(file);
+
+    return 'img';
   }
 }
