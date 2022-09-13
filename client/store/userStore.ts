@@ -90,7 +90,6 @@ export default class UserStore {
 
       userName =
         JSON.parse(sessionStorage.getItem("isAdmin") || "false") || false;
-      console.log(userName);
     }
     return userName;
   }

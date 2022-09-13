@@ -35,7 +35,6 @@ export default function BlogCard({ blogData }: CardProps) {
 
   useEffect(() => {
     userStore.isAdmin ? setIsAdmin(true) : setIsAdmin(false);
-    console.log(userStore.isAdmin);
   }, [userStore.isAdmin]);
 
   return (

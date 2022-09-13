@@ -17,7 +17,6 @@ const Post = () => {
 
   const onSubmit = () => {
     setTitle("");
-    console.log(contents);
     BlogService.post(title, contents);
     router.back();
   };

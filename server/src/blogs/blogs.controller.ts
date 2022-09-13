@@ -78,7 +78,6 @@ export class BlogsController {
   async updateImg(@UploadedFile() file: Express.Multer.File) {
     // return 'img';
     // return { image: `http://localhost:8080/media/blogs/${files[0].filename}` };
-    console.log(file);
 
     return { image: `http://localhost:8080/media/blogs/${file.filename}` };
   }

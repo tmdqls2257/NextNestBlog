@@ -33,13 +33,10 @@ const EditorComponent = ({ setContents, contents }: EditorComponentProp) => {
 
       if (file !== null) {
         formData.append("image", file[0]);
-        console.log(formData);
 
         // 저의 경우 파일 이미지를 서버에 저장했기 때문에
         // 백엔드 개발자분과 통신을 통해 이미지를 저장하고 불러왔습니다.
         try {
-          console.log("files", file[0]);
-
           // await NetworkService.request(
           //   "blogs/upload",
           //   MethodType.post,

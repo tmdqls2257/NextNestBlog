@@ -21,7 +21,6 @@ class CustomAxios {
     params?: any
   ) {
     try {
-      console.log(data);
       // const res: AxiosResponse = await axios(`${this.baseURL}${url}`, {
       //   method,
       //   data: {
