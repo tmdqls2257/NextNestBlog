@@ -30,9 +30,9 @@ export class BlogEntity extends CommonEntity {
   @ApiProperty({
     example: 'html',
     description: 'description',
-    required: true,
+    required: false,
   })
-  @Column({ type: 'varchar', nullable: true, default: '' })
+  @Column({ type: 'varchar', nullable: false, default: '' })
   description: string;
 
   @ApiProperty({

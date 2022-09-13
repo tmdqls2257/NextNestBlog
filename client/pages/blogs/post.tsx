@@ -1,35 +1,25 @@
 import EditorComponent from "../../elements/ReactQuill";
-import config from "next/config";
-import React, { useMemo, useRef, useState } from "react";
-import ReactQuill from "react-quill";
+import React, { useRef, useState } from "react";
 import "react-quill/dist/quill.snow.css";
+import Button from "../../common/button/button";
 
 const Post = () => {
   const editor = useRef(null);
-  const [content, setContent] = useState("");
 
-  const onBlurTittle = () => {};
+  const [title, setTitle] = useState("");
+  const [contents, setContents] = useState("");
 
-  const onBlurContent = (content: string) => {
-    setContent(content);
-    console.log(content);
+  const onBlurTittle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value);
   };
 
-  // const modules = useMemo(() => ({
-  //   toolbar: {
-  //     container: [
-  //       [{ 'header': [1, 2, false] }],
-  //       ['bold', 'italic', 'underline','strike', 'blockquote'],
-  //       [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-  //       ['link', 'image'],
-  //       ['clean']
-  //     ],
-  //     handlers: { image: imageHandler }
-  //   }
-  // }), []);
+  const onSubmit = () => {
+    setTitle("");
+    console.log(contents);
+  };
 
   return (
-    <div className="space-y-3">
+    <form className="space-y-3">
       <label
         className="block text-grey-darker text-sm font-bold mb-2"
         htmlFor="title"
@@ -42,11 +32,14 @@ const Post = () => {
         id="email"
         type="text"
         placeholder="title"
-        onBlur={onBlurTittle}
+        onBlur={(e) => {
+          onBlurTittle(e);
+        }}
       />
       {/* <ReactQuill modules={modules} theme="snow" value={content} onChange={setContent} /> */}
-      <EditorComponent />
-    </div>
+      <EditorComponent setContents={setContents} contents={contents} />
+      <Button onClick={onSubmit}>{"submit"}</Button>
+    </form>
   );
 };
 

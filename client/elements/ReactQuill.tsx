@@ -1,20 +1,20 @@
 import axios, { AxiosError } from "axios";
-import { useRef, useState, useMemo } from "react";
+import { useRef, useState, useMemo, Dispatch, SetStateAction } from "react";
 
 //이렇게 라이브러리를 불러와서 사용하면 됩니다
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import BlogService from "service/blogService";
 import NetworkService, { MethodType } from "../network/http";
 
-type uploadImgType = {
-  data: {
-    url: string;
-  };
+type EditorComponentProp = {
+  setContents: Dispatch<SetStateAction<string>>;
+  contents: string;
 };
 
-const EditorComponent = () => {
+const EditorComponent = ({ setContents, contents }: EditorComponentProp) => {
   const QuillRef = useRef<ReactQuill>();
-  const [contents, setContents] = useState("");
+  // const [contents, setContents] = useState("");
 
   // 이미지를 업로드 하기 위한 함수
   const imageHandler = () => {
@@ -40,16 +40,16 @@ const EditorComponent = () => {
         try {
           console.log("files", file[0]);
 
-          await NetworkService.request(
-            "blogs/upload",
-            MethodType.post,
-            formData
-          ).then((data) => {
-            console.log(data.image);
+          // await NetworkService.request(
+          //   "blogs/upload",
+          //   MethodType.post,
+          //   formData
+          // ).then((data) => {
+          //   console.log(data.image);
 
-            url = data.image;
-          });
-
+          //   url = data.image;
+          // });
+          url = await BlogService.imgUpload(formData);
           // const res = await axios.post(
           //   "http://localhost:8080/blogs/upload",
           //   formData
@@ -119,6 +119,7 @@ const EditorComponent = () => {
       }}
       value={contents}
       onChange={setContents}
+      // onBlur={setContents}
       modules={modules}
       theme="snow"
       placeholder="내용을 입력해주세요."

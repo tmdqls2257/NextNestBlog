@@ -14,7 +14,12 @@ class CustomAxios {
     this.baseURL = baseURL;
   }
 
-  async request(url: string | undefined, method: MethodType, data?: any) {
+  async request(
+    url: string | undefined,
+    method: MethodType,
+    data?: any,
+    params?: any
+  ) {
     try {
       console.log(data);
       // const res: AxiosResponse = await axios(`${this.baseURL}${url}`, {
@@ -35,6 +40,7 @@ class CustomAxios {
         baseURL: this.baseURL,
         method,
         data,
+        params,
       });
 
       if (res.status > 299 || res.status < 200) {
