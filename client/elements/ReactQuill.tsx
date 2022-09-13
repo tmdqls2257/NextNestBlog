@@ -4,7 +4,7 @@ import { useRef, useState, useMemo } from "react";
 //이렇게 라이브러리를 불러와서 사용하면 됩니다
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-import NetworkService, { MethodType } from "network/http";
+import NetworkService, { MethodType } from "../network/http";
 
 type uploadImgType = {
   data: {
