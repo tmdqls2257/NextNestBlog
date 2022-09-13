@@ -1,16 +1,14 @@
 import Header from "../elements/header/Header";
-import React, { useState } from "react";
+import React from "react";
 
 type LayoutProps = {
   children: React.ReactNode;
 };
 
 const Layout = ({ children }: LayoutProps) => {
-  const onClick = () => {};
-
   return (
-    <div className=" min-h-screen">
-      <Header onClick={onClick} />
+    <div className="min-h-screen flex flex-col items-center">
+      <Header />
       {children}
     </div>
   );

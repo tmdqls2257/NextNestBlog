@@ -11,7 +11,7 @@ type BlogsProps = {
 export default function Blogs({ blogs }: BlogsProps) {
   return (
     <Layout>
-      <ul className="flex gap-3">
+      <ul className="flex gap-3 w-2/3 flex-wrap justify-center">
         {blogs.map((data, idx) => (
           <BlogCard blogData={data} key={idx}></BlogCard>
         ))}
