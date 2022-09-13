@@ -13,6 +13,7 @@ type HeaderProps = {
 
 const Header = observer(({ onClick }: HeaderProps) => {
   const [isLogIn, setIsLogIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { userStore } = userStores();
 
   const onLogOut = () => {
@@ -22,6 +23,11 @@ const Header = observer(({ onClick }: HeaderProps) => {
   useEffect(() => {
     userStore.currentUser ? setIsLogIn(true) : setIsLogIn(false);
   }, [userStore.currentUser]);
+
+  useEffect(() => {
+    userStore.isAdmin ? setIsAdmin(true) : setIsAdmin(false);
+  }, [userStore.isAdmin]);
+
   return (
     <header
       className={classNameJoiner("w-full flex items-center justify-between")}
@@ -40,9 +46,11 @@ const Header = observer(({ onClick }: HeaderProps) => {
           </LinkButton>
         )}
 
-        <LinkButton href={"http://localhost:3000/blogs/post"}>
-          {"글쓰기"}
-        </LinkButton>
+        {isAdmin && (
+          <LinkButton href={"http://localhost:3000/blogs/post"}>
+            {"글쓰기"}
+          </LinkButton>
+        )}
       </div>
     </header>
   );
