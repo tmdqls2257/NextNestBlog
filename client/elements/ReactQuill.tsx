@@ -40,20 +40,29 @@ const EditorComponent = () => {
         try {
           console.log("files", file[0]);
 
-          const res = await NetworkService.request(
+          await NetworkService.request(
             "blogs/upload",
             MethodType.post,
             formData
-          );
+          ).then((data) => {
+            console.log(data.image);
+
+            url = data.image;
+          });
 
           // const res = await axios.post(
           //   "http://localhost:8080/blogs/upload",
           //   formData
           // );
-          console.log(file[0]);
+          // console.log("res", res.);
 
+          // console.log("res.images", res.images);
+          // res.images.map((image: string) => {
+          //   url = image;
+          // });
           // 커서의 위치를 알고 해당 위치에 이미지 태그를 넣어주는 코드
           // 해당 DOM의 데이터가 필요하기에 useRef를 사용한다.
+
           const range = QuillRef.current?.getEditor().getSelection()?.index;
           if (range !== null && range !== undefined) {
             let quill = QuillRef.current?.getEditor();
@@ -66,10 +75,10 @@ const EditorComponent = () => {
             );
           }
 
-          return { ...res, success: true };
+          // return { ...res, success: true };
         } catch (error) {
           const err = error as AxiosError;
-          return { ...err.response, success: false };
+          // return { ...err.response, success: false };
         }
       }
     };
@@ -102,20 +111,18 @@ const EditorComponent = () => {
   );
 
   return (
-    <>
-      <ReactQuill
-        ref={(element) => {
-          if (element !== null) {
-            QuillRef.current = element;
-          }
-        }}
-        value={contents}
-        onChange={setContents}
-        modules={modules}
-        theme="snow"
-        placeholder="내용을 입력해주세요."
-      />
-    </>
+    <ReactQuill
+      ref={(element) => {
+        if (element !== null) {
+          QuillRef.current = element;
+        }
+      }}
+      value={contents}
+      onChange={setContents}
+      modules={modules}
+      theme="snow"
+      placeholder="내용을 입력해주세요."
+    />
   );
 };
 

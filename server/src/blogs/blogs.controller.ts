@@ -52,13 +52,34 @@ export class BlogsController {
 
   // @UseInterceptors(FileInterceptor('image', multerOptions('blogs')))
   // @UseInterceptors(FilesInterceptor('image', 10, multerOptions('cats')))
+  // @ApiOperation({ summary: '이미지 업로드' })
+  // @Post('upload')
+  // @UseInterceptors(FilesInterceptor('images', 10, multerOptions('blogs')))
+  // async updateImg(@UploadedFiles() files: Array<Express.Multer.File>) {
+  //   // return 'img';
+  //   // return { image: `http://localhost:8080/media/blogs/${files[0].filename}` };
+  //   files.map((img) => {
+  //     console.log(img.filename);
+  //   });
+
+  //   const result = [];
+  //   await files.map((img) => {
+  //     result.push(`http://localhost:8080/media/blogs/${img.filename}`);
+  //   });
+  //   console.log(result);
+
+  //   return {
+  //     images: result,
+  //   };
+  // }
   @ApiOperation({ summary: '이미지 업로드' })
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('image', 10, multerOptions('blogs')))
-  async updateImg(@UploadedFiles() files: Array<Express.Multer.File>) {
-    console.log(files);
-
+  @UseInterceptors(FileInterceptor('image', multerOptions('blogs')))
+  async updateImg(@UploadedFile() file: Express.Multer.File) {
     // return 'img';
-    return { image: `http://localhost:8080/media/blogs/${files[0].filename}` };
+    // return { image: `http://localhost:8080/media/blogs/${files[0].filename}` };
+    console.log(file);
+
+    return { image: `http://localhost:8080/media/blogs/${file.filename}` };
   }
 }
