@@ -14,7 +14,7 @@ import { ApiOperation } from '@nestjs/swagger';
 import { BlogsService } from './blogs.service';
 import { BlogDTO } from './dto/blog.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { multerOptions } from '../../utils/multer.options';
+import { multerOptions } from '../common/utils/multer.options';
 
 @Controller('blogs')
 export class BlogsController {
@@ -55,9 +55,10 @@ export class BlogsController {
   @ApiOperation({ summary: '이미지 업로드' })
   @Post('upload')
   @UseInterceptors(FilesInterceptor('image', 10, multerOptions('blogs')))
-  async updateImg(@UploadedFiles() file: Array<Express.Multer.File>) {
-    console.log(file);
+  async updateImg(@UploadedFiles() files: Array<Express.Multer.File>) {
+    console.log(files);
 
-    return 'img';
+    // return 'img';
+    return { image: `http://localhost:8080/media/blogs/${files[0].filename}` };
   }
 }

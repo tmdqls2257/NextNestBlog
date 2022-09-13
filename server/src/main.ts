@@ -12,6 +12,7 @@ import * as passport from 'passport';
 import * as cookieParser from 'cookie-parser';
 import { HttpApiExceptionFilter } from './common/exceptions/http-api-exception.filter';
 import * as expressSession from 'express-session';
+import * as path from 'path';
 
 class Application {
   private logger = new Logger(Application.name);
@@ -33,6 +34,14 @@ class Application {
     // ("https://google.com, https://naver.com");
     this.ADMIN_USER = process.env.ADMIN_USER || 'amamov';
     this.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '1205';
+  }
+
+  // localhost:8080/media/blogs/aaa.png
+
+  private multer() {
+    this.server.useStaticAssets(path.join(__dirname, './common', 'uploads'), {
+      prefix: '/media',
+    });
   }
 
   private setUpBasicAuth() {
@@ -81,6 +90,8 @@ class Application {
     this.server.use(cookieParser());
     this.setUpBasicAuth();
     this.setUpOpenAPIMidleware();
+    this.multer();
+
     // pipeline을 글로벌하게 사용할 수 있게
     this.server.useGlobalPipes(
       new ValidationPipe({

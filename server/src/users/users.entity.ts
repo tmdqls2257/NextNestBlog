@@ -12,6 +12,7 @@ import { Exclude } from 'class-transformer';
 import { ProfileEntity } from '../profiles/profiles.entity';
 import { BlogEntity } from '../blogs/blogs.entity';
 import { ApiProperty } from '@nestjs/swagger';
+// import { CommonEntity } from 'src/common/entities/common.entity';
 
 @Index('email', ['email'], { unique: true })
 @Entity({
