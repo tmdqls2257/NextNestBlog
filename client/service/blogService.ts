@@ -34,6 +34,15 @@ class BlogNetworkService {
 
     return response.image;
   }
+
+  async deleteBlog(ID: string) {
+    const response = await NetworkService.request(
+      `blogs/${ID}`,
+      MethodType.delete
+    );
+
+    return response;
+  }
 }
 
 const BlogService = new BlogNetworkService();

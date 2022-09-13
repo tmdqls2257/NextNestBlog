@@ -1,11 +1,12 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { classNameJoiner } from "../../utils/className";
 
 type IconBoxProps = {
   id?: string;
   style?: string;
   iconName: IconType;
-  onClick?: (event: React.MouseEvent<SVGSVGElement>) => void;
+  // onClick?: (event: React.MouseEvent<SVGSVGElement>) => void;
+  onClick?: MouseEventHandler<SVGSVGElement>;
 };
 
 export enum IconType {

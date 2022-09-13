@@ -1,10 +1,10 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 import { classNameJoiner } from "../../utils/className";
 
 type CardProps = {
   // children: React.ReactNode;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLLIElement>;
   style?: string;
 };
 
