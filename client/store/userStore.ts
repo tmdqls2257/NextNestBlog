@@ -64,6 +64,9 @@ export default class UserStore {
   @action
   logOut = async () => {
     await UserService.logOut;
+    sessionStorage.removeItem("user");
+    sessionStorage.removeItem("isAdmin");
+    location.reload();
   };
 
   @computed
@@ -85,7 +88,8 @@ export default class UserStore {
     if (typeof window !== "undefined") {
       // Perform localStorage action
 
-      userName = JSON.parse(sessionStorage.getItem("isAdmin") || "false");
+      userName =
+        JSON.parse(sessionStorage.getItem("isAdmin") || "false") || false;
       console.log(userName);
     }
     return userName;

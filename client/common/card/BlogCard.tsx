@@ -32,7 +32,7 @@ export default function BlogCard({ blogData }: CardProps) {
   return (
     <Card onClick={onClick}>
       <h5 className="py-3">{blogData.title}</h5>
-      <p>{blogData.contents}</p>
+
       {/* {children} */}
 
       {/* <p>{Date.parse(blogData.createdAt)}</p> */}

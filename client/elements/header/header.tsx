@@ -21,7 +21,7 @@ const Header = observer(({ onClick }: HeaderProps) => {
   };
 
   useEffect(() => {
-    userStore.currentUser ? setIsLogIn(true) : setIsLogIn(false);
+    userStore.currentUser !== "" ? setIsLogIn(true) : setIsLogIn(false);
   }, [userStore.currentUser]);
 
   useEffect(() => {
