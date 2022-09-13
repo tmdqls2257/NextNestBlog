@@ -2,6 +2,7 @@ import React from "react";
 import { BlogModel } from "../../data/blogData";
 import { useRouter } from "next/router";
 import Card from "./Card";
+import IconBox, { IconType } from "../../common/IconBox/IconBox";
 
 type CardProps = {
   // children: React.ReactNode;
@@ -31,7 +32,13 @@ export default function BlogCard({ blogData }: CardProps) {
       {/* {children} */}
 
       {/* <p>{Date.parse(blogData.createdAt)}</p> */}
-      <p className="flex flex-row-revers">{date[0]}</p>
+      <section className="flex items-center justify-between">
+        <p className="flex flex-row-revers">{date[0]}</p>
+        <div className="flex">
+          <IconBox iconName={IconType.update} />
+          <IconBox iconName={IconType.trash} />
+        </div>
+      </section>
     </Card>
   );
 }

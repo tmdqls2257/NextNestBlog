@@ -4,8 +4,8 @@ import React from "react";
 
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import BlogCard from "./BlogCard";
 import Card from "./Card";
+import BlogCard from "./BlogCard";
 
 export default {
   /* 👇 The title prop is optional.
@@ -14,6 +14,7 @@ export default {
    */
   title: "Components/Card",
   component: BlogCard,
+  Card,
 } as ComponentMeta<typeof BlogCard>;
 
 export const blogCard: ComponentStory<typeof BlogCard> = () => {
@@ -30,7 +31,7 @@ export const blogCard: ComponentStory<typeof BlogCard> = () => {
   return <BlogCard blogData={data}></BlogCard>;
 };
 
-export const card: ComponentStory<typeof BlogCard> = () => {
+export const card: ComponentStory<typeof Card> = () => {
   return (
     <Card>
       <h1>{"1212"}</h1>
