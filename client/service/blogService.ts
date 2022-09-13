@@ -2,10 +2,10 @@ import NetworkService, { MethodType } from "../network/http";
 
 class BlogNetworkService {
   constructor() {}
-  async post(title: string, content: string) {
+  async post(title: string, contents: string) {
     const response = await NetworkService.request("blogs", MethodType.post, {
       title,
-      content,
+      contents,
     });
     return response;
   }
@@ -17,13 +17,11 @@ class BlogNetworkService {
 
   async getBlog(ID: string) {
     const response = await NetworkService.request(
-      "blogs",
+      `blogs/${ID}`,
       MethodType.get,
-      {},
-      {
-        ID,
-      }
+      {}
     );
+
     return response;
   }
 

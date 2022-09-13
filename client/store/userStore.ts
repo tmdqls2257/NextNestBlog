@@ -56,7 +56,7 @@ export default class UserStore {
     runInAction(() => {
       this.user = response;
       sessionStorage.setItem("user", JSON.stringify(this.user.username));
-      console.log(sessionStorage.getItem("user"));
+      sessionStorage.setItem("isAdmin", JSON.stringify(this.user.isAdmin));
     });
     router.back();
   };
@@ -75,6 +75,19 @@ export default class UserStore {
       userName = sessionStorage.getItem("user") || "";
     }
 
+    return userName;
+  }
+
+  @computed
+  get isAdmin() {
+    let userName;
+
+    if (typeof window !== "undefined") {
+      // Perform localStorage action
+
+      userName = JSON.parse(sessionStorage.getItem("isAdmin") || "false");
+      console.log(userName);
+    }
     return userName;
   }
 }
