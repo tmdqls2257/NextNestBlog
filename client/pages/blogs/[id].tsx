@@ -1,23 +1,39 @@
-import React from "react";
-import { useRouter } from "next/router";
+import React, { useState } from "react";
+
 import Layout from "../../layouts/layout";
 import BlogLayout from "../../layouts/BlogLayout";
+import BlogService from "../../service/blogService";
+import { BlogModel } from "data/blogData";
+import parse from "html-react-parser";
 
-const BlogDetail = () => {
-  const router = useRouter();
-  const { title, content } = router.query;
+type BlogDetailProps = {
+  // children: React.ReactNode;
+  postDetail: BlogModel;
+};
+
+const BlogDetail = ({ postDetail }: BlogDetailProps) => {
   return (
     <Layout>
       <BlogLayout>
         <section className="min-h-screen text-center">
-          <h1>{"id"}</h1>
-          <h1>{title}</h1>
+          <h1>{postDetail.title}</h1>
 
-          <h1>{content}</h1>
+          {parse(postDetail.contents)}
         </section>
       </BlogLayout>
     </Layout>
   );
+};
+
+export const getServerSideProps = async (context: {
+  query: { id: string };
+}) => {
+  try {
+    const postDetail = await BlogService.getBlog(context.query.id);
+    return { props: { postDetail } };
+  } catch (err) {
+    return { props: {} };
+  }
 };
 
 export default BlogDetail;
