@@ -5,7 +5,7 @@ import { useRef, useMemo, Dispatch, SetStateAction } from "react";
 import ReactQuill from "react-quill";
 
 import "react-quill/dist/quill.snow.css";
-import BlogService from "service/blogService";
+import BlogService from "../service/blogService";
 
 type EditorComponentProp = {
   setContents: Dispatch<SetStateAction<string>>;

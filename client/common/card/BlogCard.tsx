@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Card from "./Card";
 import IconBox, { IconType } from "../../common/IconBox/IconBox";
 import { userStores } from "../../store/Context";
-import BlogService from "service/blogService";
+import BlogService from "../../service/blogService";
 
 type CardProps = {
   // children: React.ReactNode;
