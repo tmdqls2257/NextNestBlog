@@ -24,6 +24,16 @@ li,
 ol {
   list-style: none;
 }
+.ql-size-small {
+  font-size: 0.75em;
+}
+.ql-size-large {
+  font-size: 1.5em;
+}
+
+.ql-size-huge {
+  font-size: 2.5em;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
@@ -60,11 +70,6 @@ ol {
 
   h5 {
     @apply text-lg font-medium whitespace-pre-wrap;
-    word-break: keep-all;
-  }
-
-  p {
-    @apply text-base font-normal;
     word-break: keep-all;
   }
 
