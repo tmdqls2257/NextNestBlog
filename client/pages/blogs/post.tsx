@@ -1,12 +1,11 @@
 import EditorComponent from "../../elements/ReactQuill";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../common/button/button";
 import BlogService from "../../service/blogService";
 import { useRouter } from "next/router";
 
 const Post = () => {
-  const editor = useRef(null);
   const router = useRouter();
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
