@@ -68,7 +68,7 @@ const EditorComponent = ({ setContents, contents }: EditorComponentProp) => {
 
             quill?.clipboard.dangerouslyPasteHTML(
               range,
-              `<img src=${url} alt="이미지 태그가 삽입됩니다." />`
+              `<Image src=${url} alt="이미지 태그가 삽입됩니다." layout="fill"/>`
             );
           }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import Image from "next/image";
 // import logo from "./Teogu.png";
 import { classNameJoiner } from "../../utils/className";
 import IconBox, { IconType } from "../../common/IconBox/IconBox";
@@ -34,7 +34,7 @@ const Header = observer(({ onClick }: HeaderProps) => {
     >
       <div className="flex items-center ">
         <IconBox onClick={onClick} iconName={IconType.menu} />
-        <img src={"/Teogu.png"} alt="logo" width={80} />
+        <Image src={"/Teogu.png"} alt="logo" width={80} height={80} />
       </div>
 
       <div className="space-x-3">
