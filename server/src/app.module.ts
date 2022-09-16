@@ -4,7 +4,6 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
-import { UserEntity } from './users/users.entity';
 import { UsersModule } from './users/users.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { TagsModule } from './tags/tags.module';
@@ -22,8 +21,14 @@ const typeOrmModuleOptions = {
     username: configService.get('DB_USERNAME'),
     password: configService.get('DB_PASSWORD'),
     database: configService.get('DB_NAME'),
-    entities: [UserEntity],
-    synchronize: true, //! set 'false' in production
+    // entities: [UserEntity],
+    entities: ['dist/src/**/*.entity{.ts,.js'],
+    // synchronize: true, //! set 'false' in production
+    // entities: ['dist/**/*.entity{ .ts,.js}'],
+    synchronize: true,
+    //migrations: ['dist/src/migrations/*{.ts,.js}'],
+    //migrationsTableName: 'migrations_history',
+    //migrationsRun: true,
     autoLoadEntities: true,
     logging: true,
     keepConnectionAlive: true,

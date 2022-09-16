@@ -7,30 +7,19 @@ import {
   Patch,
   Post,
   UploadedFile,
-  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { BlogsService } from './blogs.service';
 import { BlogDTO } from './dto/blog.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import { multerOptions } from '../common/utils/multer.options';
 import { AwsService } from './aws.service';
-import * as multerS3 from 'multer-s3';
-import { ConfigService } from '@nestjs/config';
-import * as AWS from 'aws-sdk';
 
-const s3 = new AWS.S3({
-  accessKeyId: process.env.AWS_S3_ACCESS_KEY, // process.env.AWS_S3_ACCESS_KEY
-  secretAccessKey: process.env.AWS_S3_SECRET_KEY,
-  region: process.env.AWS_S3_REGION,
-});
 @Controller('blogs')
 export class BlogsController {
   constructor(
     private blogsService: BlogsService,
     private awsService: AwsService,
-    private configService: ConfigService,
   ) {}
 
   @ApiOperation({ summary: '모든 블로그 가져오기' })
