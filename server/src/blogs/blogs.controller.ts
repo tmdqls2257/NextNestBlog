@@ -15,10 +15,23 @@ import { BlogsService } from './blogs.service';
 import { BlogDTO } from './dto/blog.dto';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { multerOptions } from '../common/utils/multer.options';
+import { AwsService } from './aws.service';
+import * as multerS3 from 'multer-s3';
+import { ConfigService } from '@nestjs/config';
+import * as AWS from 'aws-sdk';
 
+const s3 = new AWS.S3({
+  accessKeyId: process.env.AWS_S3_ACCESS_KEY, // process.env.AWS_S3_ACCESS_KEY
+  secretAccessKey: process.env.AWS_S3_SECRET_KEY,
+  region: process.env.AWS_S3_REGION,
+});
 @Controller('blogs')
 export class BlogsController {
-  constructor(private blogsService: BlogsService) {}
+  constructor(
+    private blogsService: BlogsService,
+    private awsService: AwsService,
+    private configService: ConfigService,
+  ) {}
 
   @ApiOperation({ summary: '모든 블로그 가져오기' })
   @Get()
@@ -72,13 +85,17 @@ export class BlogsController {
   //     images: result,
   //   };
   // }
+
+  // @UseInterceptors(FileInterceptor('image', multerOptions('blogs')))
   @ApiOperation({ summary: '이미지 업로드' })
   @Post('upload')
-  @UseInterceptors(FileInterceptor('image', multerOptions('blogs')))
+  @UseInterceptors(FileInterceptor('image'))
   async updateImg(@UploadedFile() file: Express.Multer.File) {
     // return 'img';
     // return { image: `http://localhost:8080/media/blogs/${files[0].filename}` };
+    // return { image: `http://localhost:8080/media/blogs/${file.filename}` };
 
-    return { image: `http://localhost:8080/media/blogs/${file.filename}` };
+    const res = await this.awsService.uploadFileToS3('blog', file);
+    return await this.awsService.getAwsS3FileUrl(res.key);
   }
 }

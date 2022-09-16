@@ -32,7 +32,7 @@ class BlogNetworkService {
       formData
     );
 
-    return response.image;
+    return response;
   }
 
   async deleteBlog(ID: string) {
