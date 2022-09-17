@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
+import {
+  TypeOrmModule,
+  TypeOrmModuleAsyncOptions,
+  TypeOrmModuleOptions,
+} from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { AppController } from './app.controller';
@@ -10,29 +14,28 @@ import { TagsModule } from './tags/tags.module';
 import { VisitorsModule } from './visitors/visitors.module';
 import { ProfilesModule } from './profiles/profiles.module';
 
-const typeOrmModuleOptions = {
+export const typeOrmModuleOptions: TypeOrmModuleAsyncOptions = {
   useFactory: async (
     configService: ConfigService,
-  ): Promise<TypeOrmModuleOptions> => ({
-    namingStrategy: new SnakeNamingStrategy(),
-    type: 'postgres',
-    host: configService.get('DB_HOST'), // process.env.DB_HOST
-    port: configService.get('DB_PORT'),
-    username: configService.get('DB_USERNAME'),
-    password: configService.get('DB_PASSWORD'),
-    database: configService.get('DB_NAME'),
-    // entities: [UserEntity],
-    entities: ['dist/src/**/*.entity{.ts,.js'],
-    // synchronize: true, //! set 'false' in production
-    // entities: ['dist/**/*.entity{ .ts,.js}'],
-    synchronize: true,
-    //migrations: ['dist/src/migrations/*{.ts,.js}'],
-    //migrationsTableName: 'migrations_history',
-    //migrationsRun: true,
-    autoLoadEntities: true,
-    logging: true,
-    keepConnectionAlive: true,
-  }),
+  ): Promise<TypeOrmModuleOptions> => {
+    return {
+      namingStrategy: new SnakeNamingStrategy(),
+      type: 'postgres',
+      host: configService.get('DB_HOST'), // process.env.DB_HOST
+      port: configService.get('DB_PORT'),
+      username: configService.get('DB_USERNAME'),
+      password: configService.get('DB_PASSWORD'),
+      database: configService.get('DB_NAME'),
+      entities: ['dist/**/*.entity{.ts,.js}'],
+      synchronize: false,
+      migrations: ['dist/src/migrations/*{.ts,.js}'],
+      // migrationsRun: true,
+      autoLoadEntities: true,
+      logging: true,
+      keepConnectionAlive: true,
+      migrationsRun: true,
+    };
+  },
   inject: [ConfigService],
 };
 
