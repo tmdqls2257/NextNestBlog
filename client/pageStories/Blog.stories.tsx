@@ -8,4 +8,4 @@ export default {
   component: Blogs,
 } as ComponentMeta<typeof Blogs>;
 
-export const layout: ComponentStory<typeof Blogs> = () => <Blogs />;
+export const layout: ComponentStory<typeof Blogs> = () => <Blogs blogs={[]} />;

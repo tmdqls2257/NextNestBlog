@@ -1,4 +1,10 @@
-import EditorComponent from "../../elements/ReactQuill";
+import dynamic from "next/dynamic";
+
+const EditorComponent = dynamic(() => import("../../elements/ReactQuill"), {
+  ssr: false,
+});
+
+// import EditorComponent from "../../elements/ReactQuill";
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import Button from "../../common/button/button";

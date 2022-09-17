@@ -9,7 +9,18 @@ export default {
 } as ComponentMeta<typeof BlogDetail>;
 
 export const blogLayout: ComponentStory<typeof BlogDetail> = () => (
-  <BlogDetail />
+  <BlogDetail
+    postDetail={{
+      title: "",
+      contents: "",
+      description: "",
+      deletedAt: null,
+      likeCount: 0,
+      id: "",
+      createdAt: "",
+      updatedAt: "",
+    }}
+  />
 );
 
 blogLayout.story = {
