@@ -46,7 +46,6 @@ export const typeOrmModuleOptions: TypeOrmModuleAsyncOptions = {
       synchronize: false,
       migrationsRun: false,
       migrations: ['dist/**/migrations/**/*{.ts,.js}'],
-      migrationsTableName: 'history',
     };
   },
   inject: [ConfigService],
@@ -70,7 +69,6 @@ export const typeOrmModuleOptions: TypeOrmModuleAsyncOptions = {
         DB_PASSWORD: Joi.string().required(),
         DB_HOST: Joi.string().required(),
         DB_PORT: Joi.number().required(),
-        DB_NAME: Joi.string().required(),
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmModuleOptions),

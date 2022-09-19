@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-
+//process.env.DB_NAME
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.DB_HOST,
@@ -12,5 +12,4 @@ export const AppDataSource = new DataSource({
   synchronize: false,
   migrationsRun: false,
   migrations: ['dist/**/migrations/**/*{.ts,.js}'],
-  migrationsTableName: 'history',
 });
